@@ -1,0 +1,208 @@
+/**
+ * ---------------------------------
+ * BGA framework: Gregory Isabelli & Emmanuel Colin & BoardGameArena
+ * AceOfSpadesP implementation : © Montse Mkd <xeta21@gmail.com>
+ *
+ * Este código ha sido producido en la plataforma BGA Studio para su uso en:
+ * http://boardgamearena.com
+ * ---------------------------------
+ *
+ * aceofspadesp.css
+ *
+ * Hoja de estilos para AceOfSpadesP
+ *
+ */
+
+/* ----------------------------- */
+/*      ESTILOS GENERALES        */
+/* ----------------------------- */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Ocultar estrella */
+i.fa-star {
+    display: none !important;
+}
+
+/* ----------------------------- */
+/*        ÁREA DE AYUDA          */
+/* ----------------------------- */
+
+#help-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Ajusta según sea necesario */
+    background: url('img/fondo2.jpg') no-repeat center center/cover; /* Imagen de fondo */
+    display: flex;
+    justify-content: space-between; /* Alineación de cajas */
+    align-items: center; /* Centrado vertical */
+
+}
+
+/* Caja izquierda con imagen */
+.playertablecard-left {
+    width: 550px;
+    height: 300px;
+    padding-left: 30px;
+    margin-left: 20px;
+    border: 3px solid black;
+    background: url('img/help.jpg') no-repeat center center/cover;
+}
+
+
+
+/* Caja derecha */
+.playertablecard-right {
+    width: 550px;
+    height: 300px;
+}
+
+/* ----------------------------- */
+/*         MANO DEL JUGADOR      */
+/* ----------------------------- */
+
+#myhand {
+    display: flex;
+    flex-wrap: wrap; /* Permite múltiples filas */
+    justify-content: center; /* Centra las cartas */
+    align-items: center;
+    padding: 10px;
+    gap: 10px; /* Espaciado entre cartas */
+}
+
+/* Contenedor de la mano */
+#myhand_wrap2 {
+   /*-- background-color: rgba(136, 0, 0, 0.637);*/
+    border-radius: 10px;
+    padding: 15px;
+    background: none !important; /*Borrar fondo predefinido*/
+    text-align: center;
+}
+
+/* Etiqueta de la mano */
+#myhand_label2 {
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left; /* Alinea el texto a la izquierda */
+    width: 100%; /* Asegura que el texto respete el ancho del contenedor */
+}
+
+
+/* ----------------------------- */
+/*        ZONA DE JUEGO          */
+/* ----------------------------- */
+
+#MyPlayArea {
+    display: flex;
+    flex-wrap: wrap; /* Permite múltiples filas */
+    justify-content: center; /* Centra las cartas */
+    align-items: center;
+    padding: 10px;
+    gap: 10px; /* Espaciado entre cartas */
+}
+
+/* Contenedor de la mano */
+#MyPlayArea_wrap2 {
+     /*-- background-color: rgba(136, 0, 0, 0.637);*/
+    border-radius: 10px;
+    padding: 15px;
+    background: none !important; /*Borrar fondo predefinido*/
+    text-align: center;
+}
+
+
+/* Etiqueta de la mano */
+#MyPlayArea_label2 {
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left; /* Alinea el texto a la izquierda */
+    width: 100%; /* Asegura que el texto respete el ancho del contenedor */
+}
+
+
+/* Contenedor principal */
+#MyPlayArea_wrap2 {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaciado entre elementos */
+}
+
+
+
+/* ----------------------------- */
+/*        CONTENEDORES           */
+/* ----------------------------- */
+
+
+/* Contenedor de las cajas (las cuatro en fila) */
+.counter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre cada imagen y número */
+}
+
+/* Contenedor de las cajas de contadores */
+.counter-container {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+/* Caja individual de imagen y número */
+.counter-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 100px;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Ajuste del tamaño de las imágenes */
+.counter-box img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+
+/* ----------------------------- */
+/*         CARTAS DE JUEGO       */
+/* ----------------------------- */
+
+.playertablecard {
+    width: 90px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto de elevación al pasar el mouse */
+.playertablecard:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Imagen de la carta */
+.card-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
