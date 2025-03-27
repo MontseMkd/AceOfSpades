@@ -139,7 +139,7 @@ function (dojo, declare) {
                                             // Llamar a la acción "MyPlayArea" con las cartas seleccionadas
                                             this.bgaPerformAction("actShuffleDeck2");
                                         } else {
-                                            alert('¡Selecciona al menos una carta!');
+                                            alert('¡Selecciona al menos una carta !');
                                         }
                                     },
                                     { color: 'secondary' }
