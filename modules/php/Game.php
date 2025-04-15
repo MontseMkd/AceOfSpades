@@ -90,17 +90,17 @@ class Game extends \Table
 
         // Marcar las cartas seleccionadas como no disponibles
         foreach ($cards as $card) {
-            $sqlUpdate = "UPDATE mazo_cartas SET disponible = 0 WHERE id = " . $card['id'];
+            $sqlUpdate = "UPDATE mazo_cartas SET enMesa = 0 WHERE id = " . $card['id'];
             try {
                 self::DbQuery($sqlUpdate);
-                error_log("Carta ID " . $card['id'] . " marcada como no disponible.");
+                error_log("Carta ID " . $card['id'] . " marcada como en mesa");
             } catch (Exception $e) {
                 error_log("Error al actualizar la carta ID " . $card['id'] . ": " . $e->getMessage());
             }
         }
 
         // Notificar a todos los jugadores
-        self::notifyAllPlayers("newCards", clienttranslate('Se han mezclado las cartas.'), [
+        self::notifyAllPlayers("newCards", clienttranslate('Se han jugado cartas.'), [
             'cards' => array_values($cards)
         ]);
     }

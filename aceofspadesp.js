@@ -28,11 +28,19 @@ function (dojo, declare) {
                 </div>
             `);
 
-            // Agregar el juego 
+            // Agregar area contadores
             document.getElementById('game_play_area').insertAdjacentHTML('beforeend', `
                 <div id="MyPlayArea_wrap2" class="whiteblock">
-                    <b id="MyPlayArea_label2">${_('Area Juego')}</b>
+                    <b id="MyPlayArea_label2">${_('Area de juego')}</b>
                     <div id="MyPlayArea"></div>
+                </div>
+            `);
+
+            // Area de juego
+            document.getElementById('game_play_area').insertAdjacentHTML('beforeend', `
+                <div id="MyPlayAreaJuego_wrap2" class="whiteblock">
+                    <b id="MyPlayAreaJuego_label2">${_('Contadores')}</b>
+                    <div id="MyPlayAreaJuego"></div>
                 </div>
             `);
 
@@ -55,6 +63,8 @@ function (dojo, declare) {
 
             // Agregar contadores a la derecha de la imagen
             let playArea = document.getElementById("MyPlayArea_wrap2");
+
+            let playAreaJuego = document.getElementById("MyPlayAreaJuego_wrap2");
 
             let counterContainer = document.createElement("div");
             counterContainer.classList.add("counter-container");
@@ -84,7 +94,8 @@ function (dojo, declare) {
                 counterContainer.appendChild(numberBox);
             });
 
-            playArea.appendChild(counterContainer);
+  
+            playAreaJuego.appendChild(counterContainer);
 
             this.setupNotifications();
             console.log("Ending game setup");
@@ -97,7 +108,7 @@ function (dojo, declare) {
             switch(stateName) {
                 case 'dummy':
                     break;
-            }
+            } 
         },
 
 
@@ -114,11 +125,7 @@ function (dojo, declare) {
                 }, 3000);
             },
     
-            setupNotifications: function() {
-                console.log('notif');
-                dojo.subscribe("newCards", this, "notif_newCards");
-                dojo.subscribe("MyPlayArea", this, "notif_otherEvent");
-            },
+ 
 
         onUpdateActionButtons: function(stateName, args) {
             console.log('onUpdateActionButtons: ' + stateName, args);
@@ -158,6 +165,7 @@ function (dojo, declare) {
             dojo.subscribe("newCards", this, "notif_newCards");
             dojo.subscribe("MyPlayArea", this, "notif_otherEvent"); // Ejemplo de otra notificación
         },
+
 
         //Eventos suscritos
         //El de la mano
@@ -275,11 +283,10 @@ function (dojo, declare) {
             });
         },
 
-       
-
-
 
 
         
     });
 });
+
+
