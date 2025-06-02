@@ -18,7 +18,21 @@
 
 /* Variables CSS para colores y tamaños */
 :root {
-    --primary-color: red;
+    --primary-color: rgb(109, 5, 5);
+}
+
+/* Botones */
+.red-button {
+    background-color: #4b0202 !important; /* rojo oscuro */
+    color: white !important;
+    border: none !important;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 
@@ -33,36 +47,246 @@ i.fa-star {
 }
 
 
+
+
 /* ----------------------------- */
-/*        ÁREA DE AYUDA          */
+/* ÁREA DE AYUDA             */
 /* ----------------------------- */
 
 /* Contenedor general del área de ayuda */
 #help-container {
-    position: relative;
-    width: 100%;
-    height: 400px;
+    display: grid;
+    /* Para pantallas grandes, mantenemos 2fr 1fr 1fr */
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+    align-items: start; /* Alineación al inicio para evitar que se estiren demasiado */
+    height: 450px; /* Altura fija para escritorio */
     background: url('img/fondo2.jpg') no-repeat center center/cover;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 20px;
+    position: relative; /* Mantenerlo, ya que collected-powers-container es su hijo */
+    max-width: 100%;
+    box-sizing: border-box;
+    /* Aseguramos que el contenedor principal pueda encogerse */
+    min-width: 0; 
+    overflow: hidden; /* Oculta cualquier cosa que se desborde del help-container */
 }
 
 /* Caja izquierda con imagen explicativa */
 .playertablecard-left {
-    width: 550px;
-    height: 300px;
-    padding-left: 30px;
-    margin-left: 20px;
+    height: 380px; /* Altura fija para escritorio */
+    background: url('img/help.jpg') no-repeat center center; 
+    background-size: contain; 
     border: 3px solid black;
-    background: url('img/help.jpg') no-repeat center center/cover;
+    /* Aseguramos que el elemento pueda encogerse y no mantenga un tamaño mínimo */
+    flex-shrink: 1; 
+    min-width: 0; /* MUY CRÍTICO: Permite que el contenedor se encoja a 0 si es necesario */
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    /* Opcional para debugging: background-color: rgba(255, 0, 0, 0.2); */
 }
 
-/* Caja derecha (puede contener texto o reglas) */
+/* Caja central con la carta del monstruo */
 .playertablecard-right {
-    width: 550px;
-    height: 300px;
+    height: 320px; /* Altura fija para escritorio */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Aseguramos que el elemento pueda encogerse y no mantenga un tamaño mínimo */
+    flex-shrink: 1; 
+    min-width: 0; /* MUY CRÍTICO: Permite que el contenedor se encoja a 0 si es necesario */
+    box-sizing: border-box;
+    /* Opcional para debugging: background-color: rgba(0, 0, 255, 0.2); */
 }
+
+/* Imagen dentro de la caja del monstruo (la carta) */
+.playertablecard-right img {
+    /* La imagen debe ocupar el 100% del ancho de su padre y ajustarse */
+    width: 100%;
+    height: auto; /* La altura se ajusta automáticamente */
+    max-width: 100%; /* Prevención de desbordamiento */
+    max-height: 100%; /* Prevención de desbordamiento */
+    object-fit: contain;
+    display: block; /* Eliminar posibles espacios en blanco */
+    /* Aseguramos que la imagen misma pueda encogerse */
+    min-width: 0;
+    min-height: 0;
+}
+
+/* Contenedor de poderes recolectados (AHORA ES UN HIJO DIRECTO DE #help-container) */
+#collected-powers-container {
+    position: absolute; /* Mantiene su posición absoluta DENTRO de #help-container */
+    top: 20px;
+    right: 80px;
+    display: flex;
+    flex-direction: column; /* Apilar verticalmente en escritorio */
+    align-items: flex-end; /* Alinear a la derecha en escritorio */
+    gap: 5px;
+    max-height: calc(100% - 40px); /* Limitar altura */
+    overflow-y: auto; /* Scroll si hay muchos */
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    z-index: 500;
+    /* Aseguramos que el contenedor pueda encogerse */
+    flex-shrink: 1; 
+    min-width: 0;
+    box-sizing: border-box;
+    /* Opcional para debugging: background-color: rgba(0, 255, 0, 0.2); */
+}
+
+/* Imágenes individuales de los poderes */
+#collected-powers-container img {
+    width: 400px; /* Tamaño grande para escritorio */
+    height: auto;
+    border: 2px solid gold;
+    border-radius: 5px;
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+    display: block;
+    min-width: 0;
+    min-height: 0;
+}
+
+
+
+/* ------------------------------------------- */
+/* MEDIA QUERIES PARA ADAPTACIÓN          */
+/* ------------------------------------------- */
+
+/* Ajustes para pantallas medianas (ej. laptops pequeñas, algunos tablets) */
+@media (max-width: 1200px) {
+    #help-container {
+        /* Proporciones de columnas ligeramente ajustadas */
+        grid-template-columns: 1.5fr 1fr 1fr; 
+        gap: 8px; 
+        height: auto; 
+        padding: 10px; 
+    }
+
+    #collected-powers-container {
+        right: 5px; /* Más cerca del borde */
+        top: 5px;
+        /* Reducir el tamaño de las imágenes de poder */
+        max-height: calc(100% - 10px); /* Ajustar max-height al nuevo padding */
+    }
+    #collected-powers-container img {
+        width: 150px; /* Un tamaño intermedio para los iconos */
+    }
+
+    .playertablecard-left {
+        height: 250px; /* Altura ajustada para la imagen de ayuda */
+    }
+    .playertablecard-right {
+        height: 200px; /* Altura ajustada para la carta del monstruo */
+    }
+}
+
+/* Ajustes para pantallas pequeñas (ej. tablets en vertical, móviles grandes) */
+/* **PUNTO DE QUIEBRE CRÍTICO PARA APILAR** */
+@media (max-width: 850px) { /* Ligeramente más bajo para dar espacio a la primera proporción */
+    #help-container {
+        grid-template-columns: 1fr; /* CLAVE: Una sola columna para apilar TODO */
+        height: auto; /* La altura se ajusta al contenido */
+        padding: 5px; /* Reducir padding general del contenedor */
+        gap: 15px; /* Espacio entre los elementos apilados (help, monstruo, poderes) */
+        width: 100%;
+        min-width: unset; 
+        position: relative; /* Asegurar que el help-container sea el contexto de posicionamiento */
+        align-items: center; /* Centrar los elementos apilados horizontalmente */
+    }
+
+    /* Las cajas de ayuda y monstruo ahora se apilan */
+    .playertablecard-left,
+    .playertablecard-right {
+        height: auto; 
+        width: 100%; 
+        max-width: 450px; /* Limita el ancho máximo para que no se estiren demasiado en tabletas anchas pero en modo vertical */
+        margin: 0 auto; /* Centrar y eliminar márgenes externos si el padre ya tiene gap */
+        padding: 5px;
+        box-sizing: border-box; 
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .playertablecard-left {
+        height: 200px; /* Altura para la imagen de ayuda */
+    }
+    .playertablecard-right {
+        height: 170px; /* Altura para la carta del monstruo */
+    }
+    .playertablecard-right img {
+        width: 100%; 
+        height: auto; 
+        object-fit: contain;
+    }
+
+    /* Contenedor de poderes: Ahora se comporta como un bloque más dentro del grid de 1 columna */
+    #collected-powers-container {
+        position: static; /* CLAVE: Volver al flujo normal DENTRO de la única columna del grid */
+        right: auto;
+        top: auto;
+        margin: 0 auto; /* Centrar y ajustarse al gap del padre */
+        align-items: center; /* Centrar los iconos en la fila */
+        flex-direction: row; /* Poderes en fila para móvil */
+        flex-wrap: wrap; /* Para que se envuelvan si no caben */
+        justify-content: center;
+        max-height: none; /* Quitar cualquier límite de altura */
+        overflow-y: visible; /* Asegurar que no se oculte contenido */
+        background-color: rgba(0, 0, 0, 0.6); /* Un poco más oscuro */
+        padding: 5px;
+        width: 100%; /* Ocupa el ancho completo de su columna */
+        border: 1px solid grey;
+        box-sizing: border-box;
+    }
+
+    #collected-powers-container img {
+        width: 70px; /* Tamaño de icono más pequeño para móvil */
+        height: auto; /* Altura automática */
+        margin: 3px; /* Espacio entre iconos */
+        border: 1px solid white;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas (ej. móviles pequeños) */
+@media (max-width: 500px) {
+    #help-container {
+        padding: 3px;
+        gap: 10px; /* Reducir gap un poco más */
+    }
+    .playertablecard-left {
+        height: 140px; /* Altura aún más pequeña para móvil */
+    }
+    .playertablecard-right {
+        height: 110px; /* Altura aún más pequeña para móvil */
+    }
+    #collected-powers-container {
+        padding: 3px;
+        gap: 3px;
+        width: calc(100% - 6px); /* Ajustar ancho si hay padding */
+    }
+    #collected-powers-container img {
+        width: 50px; /* Imágenes de poder aún más pequeñas */
+        margin: 2px;
+    }
+    .monster-life-box .life-label {
+        font-size: 12px;
+    }
+    .monster-life-box .life-value {
+        font-size: 16px;
+    }
+}
+
+
+
+
 
 
 /* ----------------------------- */
@@ -98,12 +322,14 @@ i.fa-star {
 }
 
 
+
+
 /* ----------------------------- */
-/*        AREA DE JUEGO          */
+/*        AREA DE DESCA          */
 /* ----------------------------- */
 
 /* Área donde se colocan las cartas en juego */
-#MyPlayArea {
+#MyPlayAreaD {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -113,7 +339,7 @@ i.fa-star {
 }
 
 /* Contenedor del área de juego */
-#MyPlayArea_wrap2 {
+#MyPlayAreaD_wrap2 {
     border-radius: 10px;
     padding: 15px;
     background: none !important;
@@ -121,7 +347,7 @@ i.fa-star {
 }
 
 /* Etiqueta del área de juego */
-#MyPlayArea_label2 {
+#MyPlayAreaD_label2 {
     font-weight: bold;
     font-size: 25px;
     margin-bottom: 5px;
@@ -172,33 +398,6 @@ i.fa-star {
 }
 
 
-/* ------------------------------------------- */
-/*        MEDIA QUERIES PARA PANTALLAS GRANDES */
-/* ------------------------------------------- */
-
-@media (min-width: 768px) {
-    /* Ajustes para pantallas medianas y grandes */
-    .counter-container {
-        justify-content: space-evenly; /* Alinea los elementos en una línea con espacios equidistantes */
-    }
-
-    .counter-box {
-        width: 100px; /* Aumenta el tamaño de las cajas si hay espacio */
-        height: 130px; /* Aumenta la altura si es necesario */
-    }
-}
-
-@media (min-width: 1024px) {
-    /* Ajustes para pantallas muy grandes */
-    .counter-container {
-        justify-content: flex-start; /* Deja los contadores alineados desde la izquierda */
-    }
-
-    .counter-box {
-        width: 120px; /* Aumenta más el tamaño de las cajas */
-        height: 150px; /* Aumenta la altura de las cajas */
-    }
-}
 
 
 
@@ -244,4 +443,227 @@ i.fa-star {
     background: none !important;
     box-shadow: none !important;
 }
+
+/* ----------------------------- */
+/*         EFECTO DAÑO           */
+/* ----------------------------- */
+
+
+/* El texto que flota al causar daño */
+.damage-effect {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    font-size: 15em;
+    font-weight: bold;
+    color: #720e03;
+    animation: floatUpFade 2s ease-out forwards;
+  
+    text-shadow:
+      -2px -2px 0 #000,
+       2px -2px 0 #000,
+      -2px  2px 0 #000,
+       2px  2px 0 #000,
+       0 0 8px rgba(116, 12, 1, 0.8);
+    will-change: transform, opacity;
+  }
+  
+  @keyframes floatUpFade {
+    0%   { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    50%  { opacity: 0.8; transform: translate(-50%, -60%) scale(1.05); }
+    100% { opacity: 0;   transform: translate(-50%, -80%) scale(0.9); }
+  }
+  
+
+
+
+  #introOverlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url('img/back.png') center center no-repeat;
+    background-size: cover;
+    display: flex;
+    /* Cambiamos flex para colocar al botón arriba y centrado */
+    align-items: flex-start;      /* lo alinea al inicio en vertical */
+    justify-content: center;      /* lo centra horizontalmente */
+    padding-top: 10vh;            /* separa el botón del borde superior */
+    z-index: 1000;
+  }
+  
+  .intro-button {
+    /* Hacemos que el ancho sea automático, con un tope */
+    display: inline-block;
+    width: auto;
+    max-width: 200px;             /* por ejemplo no más de 200px */
+    padding: 1em 2em;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 1em;
+    cursor: pointer;
+    /* Opcional: añadir sombra o fondo semitransparente */
+    background-color: rgba(102, 3, 3, 0.9);
+    box-shadow: 0 2px 8px rgb(255, 255, 255);
+  }
+  
+  #action_bar {
+    z-index: 500;    /* cualquier valor < 1000 */
+    position: relative; /* para que conteste al z-index */
+  }
+  
+  /* Oculta la barra de acciones y el mensaje de turno */
+.bga-ui-status,        /* mensaje “You must play…” */
+.bga-action-bar {      /* botones de acción */
+  display: none !important;
+}
+
+
+
+/* Oculta toda la barra de estado y botones al cargar */
+.bga-ui-header,
+.bga-ui-status,
+.bga-action-bar {
+    display: none !important;
+}
+
+
+
+/* ----------------------------- */
+/*       CAJA VIDA MONSTRUO      */
+/* ----------------------------- */
+
+/* ----------------------------- */
+/* CAJA VIDA MONSTRUO        */
+/* ----------------------------- */
+
+/* Estilos para el contenedor de la vida del monstruo */
+.monster-life-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Aumentamos el espacio para un look más limpio */
+    margin: 15px auto; /* Añadimos un poco de margen superior/inferior para separarlo de otros elementos */
+    width: fit-content;
+    min-width: 220px; /* Aumentamos el ancho mínimo para mejor presentación */
+    padding: 10px 20px; /* Más padding para el contenido */
+    border: 3px solid #6d0505; /* Un borde grueso y oscuro, a juego con primary-color */
+    border-radius: 15px; /* Bordes redondeados más suaves */
+    background: linear-gradient(to right, #2c0000, #4b0202, #2c0000); /* Fondo degradado sutil */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.1); /* Sombra exterior e interior para profundidad */
+    font-family: 'Press Start 2P', cursive, Arial, sans-serif; /* Fuente de estilo "gamer" */
+    text-transform: uppercase; /* Convertir el texto a mayúsculas */
+    color: #fce4a5; /* Color de texto suave, como oro antiguo */
+    position: relative; /* Para posibles efectos adicionales */
+}
+
+/* Pseudo-elemento para un detalle de "marco" o "brillo" */
+.monster-life-box::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde interior para un efecto de relieve */
+    border-radius: 12px;
+    pointer-events: none; /* Asegura que no interfiera con clics */
+}
+
+/* Estilo para el texto "Monster Life" */
+.monster-life-box .life-label {
+    font-size: 1.5em; /* Usamos 'em' para que se escale mejor con el tamaño del padre */
+    font-weight: bold; /* Hacerlo negrita para que resalte más */
+    white-space: nowrap;
+    margin: 0;
+    color: inherit; /* Heredar el color del padre (#fce4a5) */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8), 0 0 5px #ff0000; /* Sombra negra para profundidad y un brillo rojo sutil */
+    letter-spacing: 1px; /* Separación de letras para legibilidad */
+}
+
+/* Estilo para el valor numérico de la vida */
+.monster-life-box .life-value {
+    font-size: 2.2em; /* Mucho más grande para ser el foco */
+    font-weight: bold;
+    color: #ffcc00; /* Un color dorado brillante para el número */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8), 0 0 10px #ffa500; /* Sombra fuerte y brillo para resaltar */
+    margin: 0;
+}
+
+/* Ajustes para pantallas pequeñas (si usas media queries) */
+@media (max-width: 850px) {
+    .monster-life-box {
+        min-width: 180px; /* Reducimos el ancho mínimo en móvil */
+        padding: 8px 15px; /* Menos padding */
+        gap: 10px; /* Menos espacio entre elementos */
+        margin: 10px auto; /* Menos margen vertical */
+    }
+    .monster-life-box .life-label {
+        font-size: 1.2em;
+        letter-spacing: 0.5px;
+    }
+    .monster-life-box .life-value {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 500px) {
+    .monster-life-box {
+        min-width: 140px; /* Aún más pequeño */
+        padding: 5px 10px;
+        gap: 5px;
+        margin: 5px auto;
+    }
+    .monster-life-box .life-label {
+        font-size: 1em;
+    }
+    .monster-life-box .life-value {
+        font-size: 1.5em;
+    }
+}
+
+
+/* CALAVERA MONSTRUO */
+
+.damage-effect, .death-skull {
+    position: absolute;
+    font-size: 48px; /* Este es el tamaño base para el efecto de daño */
+    font-weight: bold;
+    color: red;
+    animation: pop-up 2s ease-out;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+.death-skull {
+    font-size: 350px; /* ¡Aumentado significativamente para que sea grande! */
+    /* Puedes probar con 100px, 120px, 180px, etc., hasta que te guste el tamaño */
+    color: black;
+    text-shadow: 2px 2px white;
+}
+
+@keyframes pop-up {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -70%) scale(1.5);
+    }
+}
+
+
+
+/* Imagen del final de partidA */
+#game_play_area.game-over-background {
+    background: url('img/back2.png') center / cover no-repeat;
+}
+
+
+
+
+
+
 
